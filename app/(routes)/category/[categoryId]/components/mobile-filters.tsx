@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, Fragment } from 'react';
 import { Plus, X } from 'lucide-react';
 import { Dialog } from '@headlessui/react';
 
@@ -22,7 +22,7 @@ const MobileFilters: React.FC<MobileFiltersProps> = ({ sizes, colors }) => {
   const onClose = () => setOpen(false);
 
   return (
-    <>
+    <Fragment>
       <Button onClick={onOpen} className="flex items-center gap-x-2 lg:hidden">
         Filters
         <Plus size={20} />
@@ -52,7 +52,7 @@ const MobileFilters: React.FC<MobileFiltersProps> = ({ sizes, colors }) => {
           </Dialog.Panel>
         </div>
       </Dialog>
-    </>
+    </Fragment>
   );
 };
 
