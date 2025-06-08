@@ -5,13 +5,14 @@ import Info from '@/components/info';
 import Gallery from '@/components/gallery';
 import Container from '@/components/ui/container';
 import ProductList from '@/components/product-list';
+import { Product } from '@/types';
 
 export const revalidate = 0;
 
 interface ProductPageProps {
-  params: {
+  params: Promise<{
     productId: string;
-  };
+  }>;
 }
 
 const ProductPage: React.FC<ProductPageProps> = async props => {
@@ -20,6 +21,7 @@ const ProductPage: React.FC<ProductPageProps> = async props => {
   const suggestedProducts = await getProducts({
     categoryId: product?.category?.id,
   });
+  console.log("🚀 ~ suggestedProducts:", suggestedProducts)
 
   if (!product) {
     return null;
@@ -39,7 +41,7 @@ const ProductPage: React.FC<ProductPageProps> = async props => {
 
           <hr className="my-10" />
 
-          <ProductList title="Related Items" items={suggestedProducts} />
+          <ProductList title="Related Items" items={suggestedProducts.filter((_product: Product) => _product.id !== product.id)} />
         </div>
       </Container>
     </div>
