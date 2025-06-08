@@ -11,19 +11,30 @@ interface Query {
 }
 
 const getProducts = async (query: Query): Promise<Product[]> => {
-  const url = qs.stringifyUrl({
-    url: URL,
-    query: {
-      colorId: query.colorId,
-      sizeId: query.sizeId,
-      categoryId: query.categoryId,
-      isFeatured: query.isFeatured,
-    },
-  });
+  try {
+    const url = qs.stringifyUrl({
+      url: URL,
+      query: {
+        colorId: query.colorId,
+        sizeId: query.sizeId,
+        categoryId: query.categoryId,
+        isFeatured: query.isFeatured,
+      },
+    });
 
-  const res = await fetch(url);
+    const res = await fetch(url);
 
-  return res.json();
+    if (!res.ok) {
+      console.error('Failed to fetch products:', await res.text());
+      return [];
+    }
+
+    const data: Product[] = await res.json();
+    return data;
+  } catch (error) {
+    console.error('Error in getProducts:', error);
+    return [];
+  }
 };
 
 export default getProducts;
