@@ -6,6 +6,7 @@ import { TabGroup, TabList, TabPanels, TabPanel } from '@headlessui/react';
 import { Image } from '@/types';
 
 import GalleryTab from './gallery-tab';
+import { ScrollArea, ScrollBar } from '../ui/scroll-area';
 
 interface GalleryProps {
   images: Image[];
@@ -14,13 +15,14 @@ interface GalleryProps {
 const Gallery: React.FC<GalleryProps> = ({ images = [] }) => {
   return (
     <TabGroup as="div" className="flex flex-col-reverse">
-      <div className="mx-auto mt-6 hidden w-full max-w-2xl sm:block lg:max-w-none">
-        <TabList className="grid grid-cols-4 gap-6">
+      <ScrollArea className="mx-auto mt-2 hidden w-full max-w-2xl sm:block lg:max-w-none">
+        <TabList className="grid grid-flow-col auto-cols-min gap-4 py-4 first:pl-2">
           {images.map((image) => (
             <GalleryTab key={image.id} image={image} />
           ))}
         </TabList>
-      </div>
+        <ScrollBar orientation="horizontal" />
+      </ScrollArea>
       <TabPanels className="aspect-square w-full">
         {images.map((image) => (
           <TabPanel key={image.id}>
