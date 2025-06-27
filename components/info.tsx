@@ -133,7 +133,7 @@ const Info: React.FC<InfoProps> = ({
 
       <div className="mt-4">
         <h3 className="font-semibold">Size:</h3>
-        <div className="flex space-x-2 mt-1">
+        <div className="flex space-x-2 space-y-2 mt-1 flex-wrap">
           {sizes.map((s) => {
             const available = isSizeAvailable(s);
             return (
